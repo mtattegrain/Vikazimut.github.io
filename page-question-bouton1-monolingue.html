@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html {
+            font-size: 14pt;
+        }
+
+        #result-text {
+            color: red;
+            font-size: 28px;
+        }
+    </style>
+
+    <!-- Script pour récupérer la réponse au quiz -->
+    <script>
+        let answered = false; /* Interdire plusieurs réponses */
+        function sendChoice(point) {
+            /* Empecher plusieurs réponses */
+            if (answered) {
+                return false;
+            }
+            answered = true;
+            /* Désactiver les boutons pour empecher plusieurs réponses */
+            document.getElementById("answer11").disabled = true;
+            document.getElementById("answer12").disabled = true;
+
+            if (point === 0) {
+                document.getElementById("result-text").innerText = 'Faux';
+            } else {
+                document.getElementById("result-text").innerText = 'Bravo';
+            }
+            /* Cette ligne permet de passer le nombre de points à l'application */
+            Vikazimut.postMessage(point);
+        }
+    </script>
+</head>
+
+<body>
+<!-- Le corps de la page -->
+
+<h2>Quiz</h2>
+<p>Ceci est une démonstration de l'utilisation de boutons radio pour un questionnaire.</p>
+
+<!-- Un exemple de video -->
+<iframe width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+
+<h2>Question</h2>
+<p>Avez-vous aimé la vidéo&nbsp;?</p>
+<div>
+    <!-- Réponse 1-->
+    <input type="radio" id="answer11" name="contact" value="0" onchange=sendChoice(1);>
+    <label for="answer11">oui</label>
+    <!-- Réponse 2-->
+    <input type="radio" id="answer12" name="contact" value="1" onchange=sendChoice(0);>
+    <label for="answer12">non</label>
+</div>
+
+<div id="result-text" style="color: red"></div>
+
+</body>
+</html>
